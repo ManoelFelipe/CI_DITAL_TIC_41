@@ -30,12 +30,12 @@ O **Programa de Desenvolvimento de Competências em Sistemas Digitais** (Edital 
 
 ## 📊 Progresso da Jornada
 
-| Etapa | Status |
-|------|:------:|
- |
-| **Módulo Básico (SD100 → SD192)** |  22/09/25 até 01/03/26 |
-| **Módulo Avançado (SD202 → SD292)** | 02/03/26 até 02/09/26  |
-| **Residência / Trabalho Final (SD302 / SD392)** | 03/09/26 até 03/03/2027 |
+| Etapa | Período Oficial | Status |
+|------|------------------|:------:|
+| **Módulo Básico (SD100 → SD192)** | 22/09/2025 → 01/03/2026 | ⬜ Em Andamento |
+| **Módulo Avançado (SD202 → SD292)** | 02/03/2026 → 02/09/2026 | ⬜ Aguardando início |
+| **Residência / Trabalho Final (SD302 / SD392)** | 03/09/2026 → 03/03/2027 | ⬜ Aguardando início |
+
 
 
 ---
