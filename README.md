@@ -35,9 +35,9 @@ O **Programa de Desenvolvimento de Competências em Sistemas Digitais** (Edital 
 
 | Etapa | Período Oficial | Status |
 |------|------------------|:------:|
-| **Módulo Básico (SD100 → SD192)** | 22/09/2025 → 01/03/2026 | ⬜ Em Andamento |
-| **Módulo Avançado (SD202 → SD292)** | 02/03/2026 → 02/09/2026 | ⬜ Aguardando início |
-| **Residência / Trabalho Final (SD302 / SD392)** | 03/09/2026 → 03/03/2027 | ⬜ Aguardando início |
+| **Módulo Básico (SD100 → SD192)** | 22/09/2025 → 01/03/2026 | ⏳ Em Andamento |
+| **Módulo Avançado (SD202 → SD292)** | 02/03/2026 → 02/09/2026 | 🕒 Aguardando início |
+| **Residência / Trabalho Final (SD302 / SD392)** | 03/09/2026 → 03/03/2027 | 🕒 Aguardando início |
 
 
 
@@ -51,25 +51,25 @@ O **Programa de Desenvolvimento de Competências em Sistemas Digitais** (Edital 
 | SD100 | Introdução à Microeletrônica | ✅|
 | SD112 | Introdução ao Verilog | ✅ |
 | SD122 | Circuitos Digitais I (Combinacionais) | ✅ |
-| SD132 | Circuitos Digitais II (Sequenciais) | ⬜ |
-| SD142 | Circuitos Digitais III (Interfaces e Periféricos) | ⬜ |
-| SD192 | Trabalho Orientado I | ⬜ |
+| SD132 | Circuitos Digitais II (Sequenciais) | ⏳ |
+| SD142 | Circuitos Digitais III (Interfaces e Periféricos) | 🕒|
+| SD192 | Trabalho Orientado I | 🕒 |
 
 ### 🔹 **Módulo Avançado**
 | Código | Disciplina | Status |
 |-------|-----------------------------|:------:|
-| SD202 | Circuitos Digitais IV – Arquiteturas IA/ML | ⬜ |
-| SD212 | Arquitetura de Sistemas Digitais – RISC-V | ⬜ |
-| SD221 | Síntese Lógica | ⬜ |
-| SD232 | Análise Estática de Timing | ⬜ |
-| SD242 | Verificação de Sistemas Digitais | ⬜ |
-| SD292 | Trabalho Orientado II | ⬜ |
+| SD202 | Circuitos Digitais IV – Arquiteturas IA/ML | 🕒 |
+| SD212 | Arquitetura de Sistemas Digitais – RISC-V | 🕒 |
+| SD221 | Síntese Lógica | 🕒 |
+| SD232 | Análise Estática de Timing | 🕒 |
+| SD242 | Verificação de Sistemas Digitais | 🕒 |
+| SD292 | Trabalho Orientado II | 🕒 |
 
 ### 🔹 **Módulo de Conclusão**
 | Código | Caminho | Status |
 |-------|-----------------------------|:------:|
-| SD302 | Residência na Indústria | ⬜ |
-| SD392 | Desenvolvimento de IP Final | ⬜ |
+| SD302 | Residência na Indústria | 🕒 |
+| SD392 | Desenvolvimento de IP Final | 🕒 |
 
 ---
 
