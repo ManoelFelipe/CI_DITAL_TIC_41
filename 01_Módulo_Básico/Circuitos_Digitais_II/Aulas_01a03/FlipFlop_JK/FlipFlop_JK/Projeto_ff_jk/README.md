@@ -1,0 +1,38 @@
+# Relatório Técnico: Implementação de Flip-Flop JK
+
+## 5.1 Descrição do Projeto
+**Autor:** Manoel Furtado  
+**Data:** 15/11/2025  
+
+Este projeto tem como objetivo principal a implementação e validação de um Flip-Flop JK disparado por borda de subida (*positive edge triggered*), utilizando a linguagem de descrição de hardware Verilog (padrão 2001). A arquitetura do sistema foi desenvolvida seguindo três paradigmas de modelagem distintos: **Behavioral** (Comportamental), **Dataflow** (Fluxo de Dados) e **Structural** (Estrutural). O foco central é demonstrar a equivalência funcional entre essas abordagens, garantindo que todas atendam aos requisitos de temporização e lógica sequencial esperados de um elemento de memória biestável.
+
+O Flip-Flop JK é um componente fundamental em circuitos digitais, resolvendo o problema de estado indeterminado do Latch SR (S=1, R=1) ao definir uma condição de *toggle* (inversão) quando ambas as entradas J e K estão em nível lógico alto. A implementação proposta explora a estrutura Mestre-Escravo (*Master-Slave*) nas abordagens de nível mais baixo (Dataflow e Structural) para garantir a robustez contra oscilações e metaestabilidade durante a transição do clock, enquanto a abordagem Behavioral abstrai essa complexidade através de construções de alto nível da linguagem. O projeto inclui um ambiente de verificação completo (*testbench*) e scripts de automação para os simuladores Quartus e Questa/ModelSim, assegurando portabilidade e facilidade de reprodução dos resultados.
+
+## 5.2 Análise das Abordagens
+
+### Implementação Behavioral
+A implementação **Behavioral** representa o nível mais alto de abstração. Nela, o foco reside na descrição do *comportamento* desejado do circuito, sem a necessidade de especificar as portas lógicas ou interconexões físicas detalhadas. Utilizando o bloco procedural `always @(posedge clk)`, instruímos a ferramenta de síntese a inferir um elemento de memória sensível à borda de subida do clock. A lógica de controle é expressa de forma clara e concisa através de uma estrutura `case`, que mapeia as combinações das entradas J e K para os estados futuros de Q (Hold, Reset, Set, Toggle). Esta abordagem é a mais utilizada na indústria moderna devido à sua legibilidade, facilidade de manutenção e flexibilidade, permitindo que o sintetizador otimize a lógica para a tecnologia alvo (FPGA ou ASIC) de maneira eficiente. O risco de erros de conexão é minimizado, e a simulação tende a ser mais rápida.
+
+### Implementação Dataflow
+A abordagem **Dataflow** situa-se em um nível intermediário, onde descrevemos o fluxo de dados através do circuito utilizando atribuições contínuas (`assign`). Para modelar um Flip-Flop disparado por borda sem utilizar blocos procedurais (`always`), recorremos à topologia Mestre-Escravo. Nesta técnica, construímos dois Latches SR controlados (gated latches) em série. O primeiro estágio (Mestre) é habilitado quando o clock está alto, capturando as entradas J e K. O segundo estágio (Escravo) é habilitado quando o clock está baixo (ou invertido), transferindo o dado do Mestre para a saída. As equações booleanas para as entradas S e R de cada latch são derivadas explicitamente (ex: `S_m = ~(J & ~Q & clk)` para lógica NAND). Esta abordagem oferece um controle mais refinado sobre a lógica combinacional gerada, mas exige um entendimento profundo da temporização e das equações booleanas subjacentes para evitar *latches* indesejados ou *race conditions*.
+
+### Implementação Structural
+A implementação **Structural** é a mais próxima do hardware físico, funcionando como um *netlist* textual. Aqui, instanciamos explicitamente as primitivas lógicas (portas `nand`, `not`, etc.) e definimos suas interconexões fio a fio. Para o Flip-Flop JK, replicamos a estrutura Mestre-Escravo utilizando portas NAND cruzadas para formar os elementos de memória. Esta abordagem é verbosa e propensa a erros humanos de conexão, mas é essencial para o entendimento didático da construção interna dos componentes digitais. Em projetos de alta performance ou *full-custom* VLSI, o design estrutural permite otimizações manuais críticas de área e potência que ferramentas automáticas poderiam perder. No entanto, para designs em FPGA, raramente é utilizada manualmente, servindo mais como formato de saída de ferramentas de síntese ou para instanciar blocos IP específicos da tecnologia.
+
+## 5.3 Descrição do Testbench
+O testbench `tb_ff_jk` foi projetado para validar exaustivamente a funcionalidade do Flip-Flop JK, replicando o diagrama de tempos fornecido no exercício e cobrindo todas as transições de estado possíveis. A metodologia de verificação baseia-se na geração de estímulos determinísticos e na autoverificação dos resultados.
+
+Inicialmente, o clock é configurado para oscilar com um período de 20ns (10ns alto, 10ns baixo). O procedimento de teste (`initial block`) aplica sequencialmente as combinações de J e K, sincronizadas para alterar seus valores antes da borda de subida do clock, garantindo o cumprimento dos tempos de *setup* e *hold*. O testbench verifica as quatro operações fundamentais:
+1.  **Hold (J=0, K=0):** Verifica se a saída Q mantém seu estado anterior.
+2.  **Set (J=1, K=0):** Verifica a transição de 0 para 1.
+3.  **Reset (J=0, K=1):** Verifica a transição de 1 para 0.
+4.  **Toggle (J=1, K=1):** Verifica a inversão do estado atual (0→1 e 1→0).
+
+Para cada transição, o testbench aguarda um tempo delta após a borda do clock e utiliza declarações condicionais `if (...)` para comparar o valor real da saída `q` com o valor esperado. Mensagens de sucesso ou erro são exibidas no console (`$display`), permitindo uma validação rápida sem a necessidade de inspeção visual constante. Além disso, o comando `$dumpvars` gera um arquivo VCD (`wave.vcd`), possibilitando a análise detalhada das formas de onda em visualizadores como o GTKWave ou o visualizador nativo do Questa, o que é crucial para depurar problemas de temporização fina ou *glitches*.
+
+## 5.4 Aplicações Práticas
+O Flip-Flop JK é um dos blocos construtivos mais versáteis na eletrônica digital, encontrando aplicações em uma vasta gama de circuitos sequenciais. Sua capacidade de realizar a função *toggle* o torna ideal para a construção de **contadores** (assíncronos e síncronos). Em um contador binário simples, a saída Q de um flip-flop é conectada ao clock do próximo, com J e K mantidos em nível lógico alto. Isso cria uma cadeia de divisores de frequência, onde cada estágio divide a frequência de entrada por dois, fundamental em relógios digitais, temporizadores e divisores de clock em microprocessadores.
+
+Outra aplicação crítica é em **máquinas de estados finitos (FSMs)**. Embora Flip-Flops tipo D sejam mais comuns em FSMs modernas devido à simplicidade de síntese, o JK pode simplificar a lógica combinacional de entrada em certos casos, reduzindo o número de portas necessárias para implementar as transições de estado. Além disso, são utilizados em **registradores de deslocamento** (*shift registers*) com funcionalidades de carga paralela e serial, essenciais para conversão de dados serial-paralelo em interfaces de comunicação (como UARTs e SPI).
+
+Em sistemas de controle, Flip-Flops JK podem ser usados para implementar lógica de detecção de sequência ou para criar **circuitos de *debounce*** (eliminação de ruído) para botões e chaves mecânicas, garantindo que um único pulso limpo seja gerado para o sistema digital. A compreensão profunda do funcionamento do JK, especialmente suas características de temporização e a estrutura Mestre-Escravo, é vital para engenheiros que projetam sistemas digitais robustos e confiáveis, onde a integridade do sinal e a sincronização precisa são mandatórias.
