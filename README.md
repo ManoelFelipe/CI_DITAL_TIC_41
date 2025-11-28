@@ -1,5 +1,8 @@
 # Programa CI Digital – Residência em TIC 41
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+
 # 👩‍💻 Manoel Furtado · CI Digital – Residência em Sistemas Digitais (UEMA)
 
 > Repositório oficial dos estudos, simulações, relatórios e projetos desenvolvidos durante o **Programa de Desenvolvimento de Competências em Sistemas Digitais – Residência em TIC 41**, vinculado à **Universidade Estadual do Maranhão (UEMA)** e ao programa nacional **CI Digital / Softex + MCTI**.

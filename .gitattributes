@@ -1,0 +1,20 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Custom mapping for Verilog/SystemVerilog
+*.v     text eol=lf
+*.sv    text eol=lf
+*.vh    text eol=lf
+*.vhd   text eol=lf
+*.vhdl  text eol=lf
+
+# Markdown
+*.md    text
+
+# Graphics
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
