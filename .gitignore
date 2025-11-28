@@ -47,6 +47,8 @@ hc_output/
 # ModelSim / Questa
 work/
 transcript
+*.vcd
+*.ini
 *.wlf
 *.mpf
 *.mti
