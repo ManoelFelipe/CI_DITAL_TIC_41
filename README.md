@@ -47,7 +47,7 @@ O **Programa de Desenvolvimento de Competências em Sistemas Digitais** (Edital 
 |-------|-----------------------------|:------:|
 | SD100 | Introdução à Microeletrônica | ✅|
 | SD112 | Introdução ao Verilog | ✅ |
-| SD122 | Circuitos Digitais I (Combinacionais) | ⬜ |
+| SD122 | Circuitos Digitais I (Combinacionais) | ✅ |
 | SD132 | Circuitos Digitais II (Sequenciais) | ⬜ |
 | SD142 | Circuitos Digitais III (Interfaces e Periféricos) | ⬜ |
 | SD192 | Trabalho Orientado I | ⬜ |
