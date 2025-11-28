@@ -86,5 +86,50 @@ O **Programa de Desenvolvimento de Competências em Sistemas Digitais** (Edital 
 
 ---
 
-## 📁 Estrutura Sugerida do Repositório
+## 📁 Estrutura do Repositório
+
+```bash
+.
+├── 01_Módulo_Básico/       # Fundamentos e Verilog (SD100 -> SD192)
+├── 02_Módulo_Avançado/     # Design e Verificação de CIs (SD202 -> SD292)
+├── 03_Módulo_de_Conclusão/ # Residência ou IP Final (SD302, SD392)
+├── scripts/                # Scripts utilitários (Python, automação)
+├── .gitattributes          # Configurações de atributos do Git
+├── .gitignore              # Arquivos ignorados (Quartus, ModelSim, etc.)
+├── LICENSE                 # Licença MIT
+└── README.md               # Documentação principal
+```
+
+---
+
+## 🛠️ Ferramentas Utilizadas
+
+*   **FPGA Design:** Intel Quartus Prime (Lite/Standard)
+*   **Simulação:** ModelSim / QuestaSim
+*   **Editor de Código:** VS Code (com extensões para Verilog/SystemVerilog)
+*   **Linguagens:** Verilog HDL, Python (scripts auxiliares)
+*   **Controle de Versão:** Git & GitHub
+
+---
+
+## ⚙️ Como Utilizar
+
+### Scripts Utilitários
+
+Este repositório contém scripts em Python para auxiliar na manutenção do projeto.
+
+#### Limpeza de Arquivos Temporários (`clean.py`)
+Para remover arquivos temporários gerados pelas ferramentas de EDA (como pastas `work`, arquivos `.vcd`, `.wlf`, etc.), execute o seguinte comando na raiz do projeto:
+
+```bash
+python scripts/clean.py
+```
+> **Nota:** O script solicitará confirmação antes de apagar qualquer arquivo.
+
+---
+
+## 📜 Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
 
