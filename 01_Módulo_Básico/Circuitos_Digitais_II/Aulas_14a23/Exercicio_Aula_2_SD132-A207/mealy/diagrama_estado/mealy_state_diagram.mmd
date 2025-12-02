@@ -1,0 +1,10 @@
+stateDiagram-v2
+    direction LR
+    
+    [*] --> IDLE
+    
+    IDLE --> S1 : b=1 / x=1
+    IDLE --> IDLE : b=0 / x=0
+    
+    S1 --> S2 : (incondicional) / x=1
+    S2 --> IDLE : (incondicional) / x=1

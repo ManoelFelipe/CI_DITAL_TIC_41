@@ -1,0 +1,27 @@
+stateDiagram-v2
+    direction LR
+    
+    [*] --> DES
+    
+    DES --> LIG1 : b=1
+    DES --> DES : b=0
+    
+    LIG1 --> LIG2 : (incondicional)
+    LIG2 --> LIG3 : (incondicional)
+    LIG3 --> DES : (incondicional)
+
+    note right of DES
+        Saída x=0
+    end note
+    
+    note right of LIG1
+        Saída x=1
+    end note
+    
+    note right of LIG2
+        Saída x=1
+    end note
+    
+    note right of LIG3
+        Saída x=1
+    end note
