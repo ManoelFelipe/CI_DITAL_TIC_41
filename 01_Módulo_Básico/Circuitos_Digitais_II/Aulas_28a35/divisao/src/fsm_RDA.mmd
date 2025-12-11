@@ -1,0 +1,23 @@
+flowchart LR
+    ESPERA((ESPERA))
+    INICIO((INICIO))
+    DESLOCA((DESLOCA))
+    SUBTRAI((SUBTRAI))
+    COMPARA((COMPARA))
+    RESTAURA((RESTAURA))
+
+    ESPERA -- "start" --> INICIO
+    ESPERA -- "reset/!start" --> ESPERA
+
+    INICIO --> DESLOCA
+
+    DESLOCA --> SUBTRAI
+
+    SUBTRAI --> COMPARA
+
+    COMPARA -- "i < N e A(n)==0" --> DESLOCA
+    COMPARA -- "A(n)==1" --> RESTAURA
+    COMPARA -- "i == N e A(n)==0" --> ESPERA
+
+    RESTAURA -- "i < N" --> DESLOCA
+    RESTAURA -- "i == N" --> ESPERA

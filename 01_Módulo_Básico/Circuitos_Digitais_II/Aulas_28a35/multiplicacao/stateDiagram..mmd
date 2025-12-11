@@ -1,0 +1,28 @@
+stateDiagram-v2
+    direction LR
+    [*] --> S0
+
+    S0 : S0<br>(idle)
+    S1 : S1<br>(bit 0)
+    S2 : S2<br>(bit 1)
+    S3 : S3<br>(bit 2)
+    S4 : S4<br>(bit de sinal)
+    S5 : S5<br>(done)
+
+    S0 --> S0 : St = 0
+    S0 --> S1 : St = 1<br>init A,B
+
+    S1 --> S2 : M = 1<br>add + shift
+    S1 --> S2 : M = 0<br>shift
+
+    S2 --> S3 : M = 1<br>add + shift
+    S2 --> S3 : M = 0<br>shift
+
+    S3 --> S4 : M = 1<br>add + shift
+    S3 --> S4 : M = 0<br>shift
+
+    S4 --> S5 : M = 1<br>add(−Mcand)+shift
+    S4 --> S5 : M = 0<br>shift
+
+    S5 --> S0 : limpa Done
+

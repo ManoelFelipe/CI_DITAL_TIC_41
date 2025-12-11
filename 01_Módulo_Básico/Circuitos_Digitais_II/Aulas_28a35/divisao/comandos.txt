@@ -1,0 +1,27 @@
+# ==============================================================================
+# Comandos para Compilar, Simular e Visualizar Ondas
+# ==============================================================================
+
+# 1. Compilação
+# ------------------------------------------------------------------------------
+# O comando 'iverilog' compila o código fonte Verilog em uma simulação executável.
+# -g2012                      : Habilita recursos mais recentes do padrão Verilog (SystemVerilog).
+# -o simulation.out           : Define o nome do arquivo de saída compilado como 'simulation.out'.
+# mult2c_frac_4bit.v          : O arquivo principal do seu circuito (Design Under Test).
+# simula/tb_mult2c_frac_4bit.v: O arquivo de testbench que enviará sinais para testar o circuito.
+
+#iverilog -g2012 -o simulation.out mult2c_frac_4bit.v simula/tb_mult2c_frac_4bit.v
+iverilog -o simulation.out src/tb_compare_RDA_NRDA.v src/divRDA_FSM.v src/divNRDA_FSM.v
+
+# 2. Simulação
+# ------------------------------------------------------------------------------
+# O comando 'vvp' executa o arquivo compilado gerado pelo iverilog.
+# Ao rodar, ele exibirá as mensagens do $display e gerará o arquivo 'wave.vcd'
+# (porque configuramos o $dumpfile no testbench).
+vvp simulation.out
+
+# 3. Visualização (GTKWave)
+# ------------------------------------------------------------------------------
+# Abre o GTKWave carregando o arquivo de ondas gerado.
+# Lá você poderá ver os sinais (clk, st, mplier, mcand, product) graficamente.
+# gtkwave wave.vcd

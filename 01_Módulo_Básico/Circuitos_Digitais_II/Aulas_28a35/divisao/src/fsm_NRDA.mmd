@@ -1,0 +1,17 @@
+flowchart LR
+    ESPERA((ESPERA))
+    INICIO((INICIO))
+    DESLOCA((DESLOCA))
+    ADDSUB((ADD_SUB))
+    SETQ((SET_Q))
+    AJUSTA((AJUSTA_RESTO))
+
+    ESPERA -- "start" --> INICIO
+    ESPERA -- "!start" --> ESPERA
+
+    INICIO --> DESLOCA
+    DESLOCA --> ADDSUB
+    ADDSUB --> SETQ
+    SETQ -- "i < N" --> DESLOCA
+    SETQ -- "i == N" --> AJUSTA
+    AJUSTA --> ESPERA
