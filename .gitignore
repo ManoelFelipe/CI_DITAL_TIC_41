@@ -45,18 +45,22 @@ hc_output/
 *.opt
 
 # ModelSim / Questa
-work/
-work_*/
-transcript
-*.vcd
-*.ini
-*.wlf
-*.mpf
-*.mti
-*.cr.mti
-cov*/
-*.ucdb
-*.vstf
+**/work/
+**/work_*/
+**/*.vcd
+**/*.wlf
+**/*.ini
+**/*.qdb
+**/*.qdf
+**/*.qpg
+**/*.qtl
+**/*.mpf
+**/*.mti
+**/*.cr.mti
+**/*.ucdb
+**/*.vstf
+**/transcript
+**/cov*/        
 
 # Vivado (if applicable)
 *.jou
