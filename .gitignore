@@ -36,8 +36,8 @@ hc_output/
 *.smsg
 *.pin
 *.done
-*.qpf
-*.qsf
+# *.qpf
+# *.qsf
 # Keep .qpf and .qsf if you want to version control the project settings, 
 # but often for student projects it is good to keep them. 
 # If you want to ignore user-specific settings but keep project settings:
@@ -60,7 +60,7 @@ hc_output/
 **/*.ucdb
 **/*.vstf
 **/transcript
-**/cov*/        
+**/cov*/
 
 # Vivado (if applicable)
 *.jou

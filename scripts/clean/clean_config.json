@@ -1,0 +1,19 @@
+{
+    "extensions_to_delete": [
+        ".tmp",
+        ".log"
+    ],
+    "protected_extensions": [
+        ".qpf",
+        ".qsf"
+    ],
+    "folders_to_delete": [
+        "work",
+        "output_files",
+        "__pycache__"
+    ],
+    "skip_dirs": [
+        ".git",
+        ".venv"
+    ]
+}

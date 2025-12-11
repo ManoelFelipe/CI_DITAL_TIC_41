@@ -19,5 +19,5 @@
 *.ico   binary
 *.pdf   binary
 
-# ModelSim / Questa
-*.do    linguist-language=Tcl
+# ModelSim / Questa (.do = Tcl scripts)
+*.do    text eol=lf linguist-language=Tcl
