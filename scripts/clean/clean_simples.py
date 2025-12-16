@@ -6,7 +6,7 @@ from pathlib import Path
 def limpar_diretorio():
     # === 1) Localizar raiz do projeto ===
     script_dir = Path(__file__).resolve().parent
-    caminho_base = script_dir.parent
+    caminho_base = script_dir.parent.parent
 
     print(f"🧹 Varredura iniciada no projeto: {caminho_base}\n")
 

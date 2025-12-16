@@ -1,150 +1,111 @@
-# 🧹 Clean Script — Documentação Completa
+# 🧹 Scripts de Limpeza (Clean Scripts)
 
-Este projeto inclui um script avançado de limpeza para remover arquivos temporários gerados por:
+Este diretório contém scripts utilitários para manter o repositório limpo, removendo arquivos temporários gerados por ferramentas como **Quartus Prime**, **ModelSim/QuestaSim** e **Python**.
 
-- **Quartus Prime**
-- **ModelSim / QuestaSim**
-- **Python**
-- Arquivos de cache e build
-
-Ele mantém seu repositório limpo e alinhado ao `.gitignore`, garantindo que nenhuma sujeira acabe indo para o Git.
+Isso garante que arquivos de build, simulação e cache não sejam comitados acidentalmente no Git.
 
 ---
 
-# 📌 Como usar o `clean.py`
+## 🚀 Scripts Disponíveis
 
-O script pode ser executado diretamente com Python:
+Existem duas versões do script:
 
+1.  **`clean.py`** (Recomendado): Versão avançada, configurável e com argumentos de linha de comando.
+2.  **`clean_simples.py`**: Versão simplificada, sem dependências de configuração externa, ideal para execução rápida e direta.
+
+Ambos os scripts estão configurados para varrer **todo o repositório** (a partir de `CI_DITAL_TIC_41/`), e não apenas a pasta onde estão localizados.
+
+---
+
+## 📌 Como usar o `clean.py`
+
+Esta é a versão mais robusta, que aceita argumentos e arquivo de configuração.
+
+### Execução Básica
+Para limpar todo o repositório:
 ```bash
 python scripts/clean/clean.py
 ```
-|
-Quando executado sem argumentos, ele:
+*Ele listará os arquivos encontrados e pedirá confirmação antes de apagar.*
 
-- Varre automaticamente a **raiz do repositório**
-- Detecta arquivos temporários
-- Pergunta confirmação antes de apagar
+### Argumentos Úteis
 
----
+| Argumento | Descrição |
+| :--- | :--- |
+| `--dry-run` ou `-n` | **Simulação**: Mostra o que seria apagado, mas **não apaga nada**. |
+| `--no-confirm` | **Automação**: Apaga tudo direto, sem pedir confirmação (Cuidado!). |
+| `--verbose` ou `-v` | **Detalhes**: Mostra cada arquivo sendo apagado individualmente. |
+| `--root "CAMINHO"` | Define manualmente uma pasta raiz diferente para limpar. |
 
-# ⚙️ Argumentos disponíveis
+### Exemplos
 
-## 🔍 1. **Modo de simulação (dry-run)**  
-Mostra tudo o que *seria* apagado, mas **não apaga nada**:
-
+Simular a limpeza (ver o que seria apagado):
 ```bash
-python scripts/clean.py --dry-run
+python scripts/clean/clean.py --dry-run
 ```
 
----
-
-## ⚠️ 2. **Sem confirmação (perigoso, mas útil para automação)**
-
-Apaga tudo sem perguntar:
-
+Limpar tudo silenciosamente e rápido:
 ```bash
-python scripts/clean.py --no-confirm
+python scripts/clean/clean.py --no-confirm
 ```
 
 ---
 
-## 📢 3. **Modo verboso**
+## ⚙️ Personalização (`clean_config.json`)
 
-Mostra cada arquivo apagado:
+O `clean.py` procura automaticamente por um arquivo `clean_config.json` na mesma pasta. Se encontrado, ele **adiciona** as configurações extras às definições padrão.
 
-```bash
-python scripts/clean.py --verbose
-```
-
----
-
-## 📁 4. **Definir manualmente a raiz do projeto**
-
-```bash
-python scripts/clean.py --root "D:/GitHub/Meu_Projeto"
-```
-
----
-
-# 🛠 Arquitetura do script
-
-O `clean.py` funciona em 4 etapas:
-
-1. Identifica a raiz do projeto  
-2. Carrega configurações internas + opcionais via `clean_config.json`
-3. Varre recursivamente TODAS as pastas
-4. Remove arquivos temporários e pastas de build
-
----
-
-# 🧩 `clean_config.json` — Configuração opcional
-
-Você pode criar na pasta `scripts/` um arquivo:
-
-```
-scripts/
-    ├──clean/
-        ├── clean.py
-        └── clean_config.json
-```
-
-### Exemplo pronto:
+Exemplo de `clean_config.json`:
 
 ```json
 {
     "extensions_to_delete": [
         ".tmp",
-        ".log"
-    ],
-    "protected_extensions": [
-        ".qpf",
-        ".qsf"
+        ".log",
+        ".bak"
     ],
     "folders_to_delete": [
-        "work",
-        "output_files",
-        "__pycache__"
+        "logs_temporarios",
+        "build_cache"
     ],
     "skip_dirs": [
-        ".git",
-        ".venv"
+        "diretorio_importante_nao_toque"
     ]
 }
 ```
 
----
-
-# 📘 O que cada campo significa?
-
-### `extensions_to_delete`
-Lista de extensões que serão removidas automaticamente.
-
-### `protected_extensions`
-Extensões que **nunca** devem ser apagadas  
-(ex.: arquivos essenciais do Quartus).
-
-### `folders_to_delete`
-Pastas que podem ser excluídas por completo.
-
-### `skip_dirs`
-Pastas que não devem ser percorridas.
+*Nota: As configurações padrão (extensões do Quartus, ModelSim, etc.) continuam valendo. O JSON apenas adiciona mais regras.*
 
 ---
 
-# 🎯 Benefícios
+## 📌 Como usar o `clean_simples.py`
 
-- Evita sujeira no Git  
-- Mantém o projeto sempre limpo  
-- Funciona em QUALQUER estrutura de pastas  
-- Pode ser totalmente personalizado
+Versão "plug-and-play" sem argumentos.
+
+```bash
+python scripts/clean/clean_simples.py
+```
+
+1. Ele detecta a raiz do repositório.
+2. Varre todas as subpastas.
+3. Mostra a lista de itens a remover.
+4. Pede confirmação (`s/n`) e apaga.
+
+Use esta versão se não quiser lidar com argumentos ou arquivos JSON.
 
 ---
 
-# 💬 Dúvidas ou melhorias?
+## 🛡 O que é preservado?
 
-Posso ajudar a criar:
-- Versão GUI (interface gráfica)
-- Versão que integra direto ao VS Code
-- Versão com logs automáticos
+Por segurança, os scripts **NUNCA** apagam:
+- A pasta `.git`
+- Arquivos de projeto essenciais do Quartus: `.qpf` (Quartus Project File) e `.qsf` (Quartus Settings File)
+- Pastas de ambiente virtual (`.venv`)
 
-Só pedir! 😊
+## 🗑 O que é apagado (Padrão)?
+
+- **Pastas**: `db`, `incremental_db`, `output_files`, `simulation`, `work`, `__pycache__`, etc.
+- **Arquivos**:
+    - **ModelSim**: `.wlf`, `.vcd`, `.qdb`, `.mti`, `.ini`, etc.
+    - **Quartus**: `.rpt`, `.summary`, `.sof`, `.pof`, `.jic`, etc.
+    - **Python**: `.pyc`, `.pyo`, `.bak`.

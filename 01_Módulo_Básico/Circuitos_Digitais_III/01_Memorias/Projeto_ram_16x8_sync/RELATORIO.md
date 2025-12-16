@@ -13,7 +13,43 @@ A validação foi realizada utilizando o simulador Questa (ModelSim) e um testbe
 
 ---
 
-## 2. Metodologia de Simulação
+## 2. Especificação e Funcionamento
+
+Para atender ao enunciado ("Descreva em Verilog uma RAM 16x8 síncrona..."), o módulo foi projetado com as seguintes características e interfaces.
+
+### 2.1 Descrição dos Pinos (Pinout)
+
+| Porta     | Largura | Direção | Descrição |
+| :---      | :---:   | :---:   | :--- |
+| `clk`     | 1 bit   | Input   | **Clock Global**: Sincroniza todas as operações (borda de subida). |
+| `we`      | 1 bit   | Input   | **Write Enable**: Habilita escrita quando alto (`1`), leitura quando baixo (`0`). |
+| `address` | 4 bits  | Input   | **Endereço**: Seleciona uma das 16 posições ($2^4 = 16$). |
+| `data_in` | 8 bits  | Input   | **Dado de Entrada**: Valor a ser escrito na memória. |
+| `data_out`| 8 bits  | Output  | **Dado de Saída**: Valor lido da memória (latência de 1 ciclo). |
+
+### 2.2 Tabela Verdade (Operação Síncrona)
+
+A tabela abaixo descreve o comportamento do circuito em cada borda de subida do clock (`↑`).
+
+| Estado Atual | `we` | `address` | Ação Realizada | `data_out` (Próximo Ciclo) |
+| :---:        | :--: | :-------: | :--- | :--- |
+| **Escrita**  | `1`  | `addr`    | `Mem[addr] ← data_in` | *Indefinido/Anterior* |
+| **Leitura**  | `0`  | `addr`    | Manter memória | `Mem[addr]` |
+
+> **Nota**: Como a leitura é síncrona, o dado solicitado no endereço `A` no tempo `T` estará disponível na saída apenas no tempo `T+1`.
+
+### 2.3 Comparativo das Arquiteturas Implementadas
+
+Embora funcionalmente idênticas, as três abordagens possuem características distintas de modelagem:
+
+| Característica | Behavioral | Dataflow | Structural |
+| :--- | :--- | :--- | :--- |
+| **Nível de Abstração** | Alto (Algorítmico) | Médio (RTL) | Baixo (Portas/Módulos) |
+| **Elemento Central** | `mem_array[addr]` | `case(addr)` | `dff_8_en` + `mux` |
+| **Uso Ideal** | Síntese de BlockRAM | Entendimento de lógica | Controle fino de *placement* |
+| **Complexidade Código**| Baixa (Simples) | Média | Alta (Verboso) |
+
+---
 
 O arquivo de teste `tb_ram_16x8_sync.v` foi projetado para exercitar todos os endereços de memória (0 a 15) em duas fases distintas, garantindo cobertura total de funcionalidade.
 

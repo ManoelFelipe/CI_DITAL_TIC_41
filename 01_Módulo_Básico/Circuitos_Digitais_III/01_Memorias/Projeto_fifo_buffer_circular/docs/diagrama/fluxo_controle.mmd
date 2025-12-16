@@ -1,0 +1,39 @@
+%% Diagrama de Fluxo de Controle: Operações da FIFO
+%% Ilustra a lógica de decisão para Escrita e Leitura com Proteção (Full/Empty)
+
+graph TD
+    Start((Início)) --> Idle[Aguardando Operação]
+
+    Idle --> |wr=1| CheckFull{FIFO Cheia?}
+    Idle --> |rd=1| CheckEmpty{FIFO Vazia?}
+
+    %% Caminho de Escrita
+    CheckFull -- Não --> WriteAction["Escrever na Memória\nmem[w_ptr] = w_data"]
+    WriteAction --> IncW[Incrementar w_ptr]
+    IncW --> CheckCircleW{w_ptr == r_ptr?}
+    CheckCircleW -- Sim --> SetFull[Setar Full = 1]
+    CheckCircleW -- Não --> ClearEmpty[Setar Empty = 0]
+    SetFull --> Idle
+    ClearEmpty --> Idle
+    CheckFull -- Sim --> Overflow["Ignorar Escrita\n(Proteção)"]
+    Overflow --> Idle
+
+    %% Caminho de Leitura
+    CheckEmpty -- Não --> ReadAction["Ler da Memória\nr_data = mem[r_ptr]"]
+    ReadAction --> IncR[Incrementar r_ptr]
+    IncR --> CheckCircleR{r_ptr == w_ptr?}
+    CheckCircleR -- Sim --> SetEmpty[Setar Empty = 1]
+    CheckCircleR -- Não --> ClearFull[Setar Full = 0]
+    SetEmpty --> Idle
+    ClearFull --> Idle
+    CheckEmpty -- Sim --> Underflow["Ignorar Leitura\n(Proteção)"]
+    Underflow --> Idle
+
+    %% Estilização
+    classDef process fill:#e0f2f1,stroke:#00695c,stroke-width:2px,color:black;
+    classDef decision fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,stroke-dasharray: 5 5,color:black;
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:black;
+
+    class Idle,WriteAction,IncW,ReadAction,IncR,SetFull,ClearEmpty,SetEmpty,ClearFull process;
+    class CheckFull,CheckCircleW,CheckEmpty,CheckCircleR decision;
+    class Overflow,Underflow error;

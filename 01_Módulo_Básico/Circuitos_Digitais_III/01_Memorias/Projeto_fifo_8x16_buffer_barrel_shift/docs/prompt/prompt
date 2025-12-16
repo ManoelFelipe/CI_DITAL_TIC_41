@@ -22,19 +22,19 @@
   Estrutura:
 
   ```
-  Projeto_rom_16x8_async/
+  Projeto_fifo_8x16_buffer_barrel_shift/
   ├── README.md
   ├── Quartus/
   │   └── rtl/
-  │       ├── behavioral/rom_16x8_async
-  │       ├── dataflow/rom_16x8_async
-  │       └── structural/rom_16x8_async
+  │       ├── behavioral/fifo_8x16_buffer_barrel_shift
+  │       ├── dataflow/fifo_8x16_buffer_barrel_shift
+  │       └── structural/fifo_8x16_buffer_barrel_shift
   └── Questa/
       ├── rtl/
-      │   ├── behavioral/rom_16x8_async
-      │   ├── dataflow/rom_16x8_async
-      │   └── structural/rom_16x8_async
-      ├── tb/tb_rom_16x8_async
+      │   ├── behavioral/fifo_8x16_buffer_barrel_shift
+      │   ├── dataflow/fifo_8x16_buffer_barrel_shift
+      │   └── structural/fifo_8x16_buffer_barrel_shift
+      ├── tb/tb_fifo_8x16_buffer_barrel_shift
       └── scripts/{clean.do,compile.do,run_cli.do,run_gui.do}
   ```
 
@@ -44,7 +44,7 @@
 
   ```verilog
   // ============================================================================
-  // Arquivo  : rom_16x8_async  (implementação [ABORDAGEM])
+  // Arquivo  : fifo_8x16_buffer_barrel_shift  (implementação [ABORDAGEM])
   // Autor    : Manoel Furtado
   // Data     : [data atual]
   // Ferramentas: Compatível com Quartus e Questa (Verilog 2001)
@@ -73,14 +73,19 @@
       ```
       tempo | a(dec) | a(bin) | b(dec) | b(bin) | sel(dec) | y(bin)
       ```
-    - Apenas 16 linhas (0–15)  
+    - Usar 16 linhas (0–15) pelo menos.  
     - Nunca deixar looping infinito  
 
   5. Testbench precisa:
+
     - Não criar latches
     - Estímulos sequenciais claros
     - `timescale 1ns/1ps`
     - Sem `$stop` permanente; usar controle de tempo
+  
+  6. Seja criativo e mostre mais tabelas:
+
+    - Tabelas que expresem o objetivo da questão a ser resolvida.
 
 
   Inclua **obrigatoriamente**:
@@ -90,7 +95,7 @@
     ```verilog
     initial begin
         $dumpfile("wave.vcd");
-        $dumpvars(0, tb_rom_16x8_async);
+        $dumpvars(0, tb_fifo_8x16_buffer_barrel_shift);
     end
     ```
   - Encerramento limpo:
@@ -143,24 +148,24 @@
   vmap work work
 
   if {$IMPLEMENTATION eq "behavioral"} {
-      vlog -work work ../rtl/behavioral/rom_16x8_async
+      vlog -work work ../rtl/behavioral/fifo_8x16_buffer_barrel_shift
   } elseif {$IMPLEMENTATION eq "dataflow"} {
-      vlog -work work ../rtl/dataflow/rom_16x8_async
+      vlog -work work ../rtl/dataflow/fifo_8x16_buffer_barrel_shift
   } elseif {$IMPLEMENTATION eq "structural"} {
-      vlog -work work ../rtl/structural/rom_16x8_async
+      vlog -work work ../rtl/structural/fifo_8x16_buffer_barrel_shift
   } else {
       echo "IMPLEMENTATION invalido: $IMPLEMENTATION"
       return
   }
 
-  vlog -work work ../tb/tb_rom_16x8_async
+  vlog -work work ../tb/tb_fifo_8x16_buffer_barrel_shift
   ```
 
   ### ▶️ run_gui.do
   ```tcl
   do clean.do
   do compile.do
-  vsim -voptargs=+acc work.tb_rom_16x8_async
+  vsim -voptargs=+acc work.tb_fifo_8x16_buffer_barrel_shift
   add wave -r /*
   run -all
   ```

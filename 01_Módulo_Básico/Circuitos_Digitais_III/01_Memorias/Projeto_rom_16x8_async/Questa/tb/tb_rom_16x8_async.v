@@ -140,6 +140,36 @@ module tb_rom_16x8_async;
                      $time, i, address, data_out_behavioral, data_out_behavioral);
         end
 
+        // ----------------------------------------------------------------------
+        // Geração da Tabela Dataflow
+        // ----------------------------------------------------------------------
+        $display("====================================================================");
+        $display(" Tabela didática - Implementação Dataflow da ROM 16x8 Assíncrona");
+        $display(" tempo(ns) | addr_dec | addr_bin | data_hex | data_bin ");
+        $display("--------------------------------------------------------------------");
+
+        for (i = 0; i < DEPTH; i = i + 1) begin
+            address = i[ADDR_WIDTH-1:0];           // Aplica endereço i
+            #10;                                   // Aguarda tempo para propagação
+            $display(" %8t | %7d | %8b |   0x%2h | %8b ",
+                     $time, i, address, data_out_dataflow, data_out_dataflow);
+        end
+
+        // ----------------------------------------------------------------------
+        // Geração da Tabela Structural
+        // ----------------------------------------------------------------------
+        $display("====================================================================");
+        $display(" Tabela didática - Implementação Structural da ROM 16x8 Assíncrona");
+        $display(" tempo(ns) | addr_dec | addr_bin | data_hex | data_bin ");
+        $display("--------------------------------------------------------------------");
+
+        for (i = 0; i < DEPTH; i = i + 1) begin
+            address = i[ADDR_WIDTH-1:0];           // Aplica endereço i
+            #10;                                   // Aguarda tempo para propagação
+            $display(" %8t | %7d | %8b |   0x%2h | %8b ",
+                     $time, i, address, data_out_structural, data_out_structural);
+        end
+
         $display("====================================================================");
 
         // Mensagem final obrigatória de sucesso ou falha

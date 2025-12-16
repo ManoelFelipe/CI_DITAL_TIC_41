@@ -208,8 +208,8 @@ def main():
     parser.add_argument(
         "--root",
         type=str,
-        default=str(script_dir.parent),
-        help="Diretório raiz a ser varrido (padrão: pasta pai de scripts/).",
+        default=str(script_dir.parent.parent),
+        help="Diretório raiz a ser varrido (padrão: raiz do repositório).",
     )
 
     parser.add_argument(

@@ -128,5 +128,4 @@ module tb_ram_16x8_sync;
         $display("Fim da simulacao.");
         $finish;
     end
-
 endmodule

@@ -1,0 +1,33 @@
+%% Diagrama Conceitual: Buffer Circular FIFO (8x8)
+%% Este diagrama ilustra a topologia lógica da memória e o movimento dos ponteiros.
+
+graph LR
+    %% Nós representando os endereços de memória (0 a 7)
+    subgraph Memory_Ring [Anel de Memória]
+        direction LR
+        N0((Addr 0))
+        N1((Addr 1))
+        N2((Addr 2))
+        N3((Addr 3))
+        N4((Addr 4))
+        N5((Addr 5))
+        N6((Addr 6))
+        N7((Addr 7))
+
+        %% Conexões formando o loop
+        N0 --> N1 --> N2 --> N3 --> N4 --> N5 --> N6 --> N7
+        N7 -.->|Loop| N0
+    end
+
+    %% Ponteiros (Conceituais)
+    WP[Write Pointer] -.-> N2
+    RP[Read Pointer] -.-> N0
+
+    %% Estilização
+    classDef memory fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:black;
+    classDef active fill:#b39ddb,stroke:#512da8,stroke-width:2px,color:black;
+    classDef pointer fill:#ffe082,stroke:#ff6f00,stroke-width:2px,stroke-dasharray: 5 5,color:black;
+
+    class N0,N1,N3,N4,N5,N6,N7 memory;
+    class N2 active; %% Exemplo: Posição atual de escrita
+    class WP,RP pointer;
